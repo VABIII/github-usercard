@@ -41,7 +41,7 @@ const followersArray = [
 
 function Git_Card({avatar_url, name, login, location, html_url, followers, following, bio}) {
 
-    const card = document.createElement("div")
+    const card = document.createElement("div");
     const img = document.createElement("img");
     const card_info = document.createElement("div")
     const names = document.createElement("h3")
