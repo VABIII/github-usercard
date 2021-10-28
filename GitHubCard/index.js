@@ -3,14 +3,7 @@ import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
-
-
-
-
-const entry = document.querySelector(".cards")
-
+    https://api.github.com/users/<your name> */
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -35,6 +28,8 @@ const entry = document.querySelector(".cards")
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+
+const entry = document.querySelector(".cards")
 
 const followersArray = [
     "tetondan",
@@ -84,28 +79,12 @@ function Git_Card({avatar_url, name, login, location, html_url, followers, follo
 function get(login, entry_point) {
     axios.get(`https://api.github.com/users/${login}`)
         .then(res => {
-            console.log(res.data)
             entry_point.appendChild(Git_Card(res.data))
-
         })
         .catch(err => {
             console.error(err)
         })
 }
-
-get(name, entry)
-
-// function Fuckers(login, entry_point, names) {
-//     axios.get(`https://api.github.com/users/${}`)
-//         .then(res => {
-//             arr.forEach(() => {
-//                 entry_point.appendChild(Git_Card(res.data))
-//             })
-//         })
-//         .catch()
-// }
-//
-// Fuckers()
 
 function Fuckers(names, entry_point) {
     names.forEach(name => {
@@ -119,13 +98,6 @@ function Fuckers(names, entry_point) {
     })
 }
 
-Fuckers(followersArray, entry)
+get("VABIII", entry)
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+Fuckers(followersArray, entry);
