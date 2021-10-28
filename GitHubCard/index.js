@@ -5,13 +5,9 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get("https://api.github.com/users/VABIII")
-    .then(res => {
-        console.log(res.data)
-    })
-    .catch(err => {
-        console.error(err)
-    })
+
+
+
 
 const entry = document.querySelector(".cards")
 
@@ -40,28 +36,90 @@ const entry = document.querySelector(".cards")
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+    "tetondan",
+    "dustinmyers",
+    "justsml",
+    "luishrd",
+    "bigknell"
+];
 
-function Git_Card(obj) {
+function Git_Card({avatar_url, name, login, location, html_url, followers, following, bio}) {
 
-    const card = document.createElement("div").classList.add("card");
+    const card = document.createElement("div")
     const img = document.createElement("img");
-    const card_info = document.createElement("div").classList.add("card-info");
-    const name = document.createElement("h3").classList.add("name");
-    const username = document.createElement("p").classList.add("username");
-    const location = document.createElement("p");
+    const card_info = document.createElement("div")
+    const names = document.createElement("h3")
+    const username = document.createElement("p")
+    const locations = document.createElement("p");
     const profile = document.createElement("p");
     const address = document.createElement("a");
-    const followers = document.createElement("p");
-    const following = document.createElement("p");
-    const bio = document.createElement("p");
+    const followerss = document.createElement("p");
+    const followings = document.createElement("p");
+    const bios = document.createElement("p");
 
+    card.classList.add("card");
+    card_info.classList.add("card-info");
+    img.src = avatar_url;
+    names.classList.add("name");
+    names.textContent = name;
+    username.textContent = login;
+    locations.textContent = location;
+    locations.classList.add("username");
+    profile.textContent = `Profile: `;
+    address.href = html_url;
+    address.textContent = html_url;
+    followerss.textContent = followers;
+    followings.textContent = following;
+    bios.textContent = bio;
 
+    card.appendChild(img);
+    card.appendChild(card_info);
+    card_info.append(names, username, locations, profile, followerss, followings, bios);
+    profile.appendChild(address)
 
-    return null;
+    return card;
 }
 
+function get(login, entry_point) {
+    axios.get(`https://api.github.com/users/${login}`)
+        .then(res => {
+            console.log(res.data)
+            entry_point.appendChild(Git_Card(res.data))
 
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
+
+get(name, entry)
+
+// function Fuckers(login, entry_point, names) {
+//     axios.get(`https://api.github.com/users/${}`)
+//         .then(res => {
+//             arr.forEach(() => {
+//                 entry_point.appendChild(Git_Card(res.data))
+//             })
+//         })
+//         .catch()
+// }
+//
+// Fuckers()
+
+function Fuckers(names, entry_point) {
+    names.forEach(name => {
+        axios.get(`https://api.github.com/users/${name}`)
+            .then(res => {
+                entry_point.appendChild(Git_Card(res.data))
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    })
+}
+
+Fuckers(followersArray, entry)
 
 /*
   List of LS Instructors Github username's:
