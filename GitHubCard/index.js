@@ -1,8 +1,20 @@
+import axios from "axios";
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get("https://api.github.com/users/VABIII")
+    .then(res => {
+        console.log(res.data)
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
+const entry = document.querySelector(".cards")
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -30,25 +42,26 @@
 
 const followersArray = [];
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
+function Git_Card(obj) {
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+    const card = document.createElement("div").classList.add("card");
+    const img = document.createElement("img");
+    const card_info = document.createElement("div").classList.add("card-info");
+    const name = document.createElement("h3").classList.add("name");
+    const username = document.createElement("p").classList.add("username");
+    const location = document.createElement("p");
+    const profile = document.createElement("p");
+    const address = document.createElement("a");
+    const followers = document.createElement("p");
+    const following = document.createElement("p");
+    const bio = document.createElement("p");
+
+
+
+    return null;
+}
+
+
 
 /*
   List of LS Instructors Github username's:
