@@ -57,21 +57,21 @@ function Git_Card({avatar_url, name, login, location, html_url, followers, follo
     card_info.classList.add("card-info");
     img.src = avatar_url;
     names.classList.add("name");
-    names.textContent = name;
-    username.textContent = login;
-    locations.textContent = location;
+    names.textContent = `Name: ${name}`;
+    username.textContent =`Username: ${login}`;
+    locations.textContent = `Location: ${location}`;
     locations.classList.add("username");
     profile.textContent = `Profile: `;
     address.href = html_url;
     address.textContent = html_url;
-    followerss.textContent = followers;
-    followings.textContent = following;
-    bios.textContent = bio;
+    followerss.textContent =`Followers: ${followers}`;
+    followings.textContent = `Following: ${following}`;
+    bios.textContent = `Bio: ${bio}`;
 
     card.appendChild(img);
     card.appendChild(card_info);
     card_info.append(names, username, locations, profile, followerss, followings, bios);
-    profile.appendChild(address)
+    profile.appendChild(address);
 
     return card;
 }
@@ -79,6 +79,7 @@ function Git_Card({avatar_url, name, login, location, html_url, followers, follo
 function get(login, entry_point) {
     axios.get(`https://api.github.com/users/${login}`)
         .then(res => {
+            console.log(res.data)
             entry_point.appendChild(Git_Card(res.data))
         })
         .catch(err => {
