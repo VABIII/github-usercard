@@ -1,8 +1,9 @@
+import axios from "axios";
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+    https://api.github.com/users/<your name> */
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,33 +29,76 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const entry = document.querySelector(".cards")
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
+const followersArray = [
+    "tetondan",
+    "dustinmyers",
+    "justsml",
+    "luishrd",
+    "bigknell"
+];
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+function Git_Card({avatar_url, name, login, location, html_url, followers, following, bio}) {
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+    const card = document.createElement("div");
+    const img = document.createElement("img");
+    const card_info = document.createElement("div")
+    const names = document.createElement("h3")
+    const username = document.createElement("p")
+    const locations = document.createElement("p");
+    const profile = document.createElement("p");
+    const address = document.createElement("a");
+    const followerss = document.createElement("p");
+    const followings = document.createElement("p");
+    const bios = document.createElement("p");
+
+    card.classList.add("card");
+    card_info.classList.add("card-info");
+    img.src = avatar_url;
+    names.classList.add("name");
+    names.textContent = `Name: ${name}`;
+    username.textContent =`Username: ${login}`;
+    locations.textContent = `Location: ${location}`;
+    locations.classList.add("username");
+    profile.textContent = `Profile: `;
+    address.href = html_url;
+    address.textContent = html_url;
+    followerss.textContent =`Followers: ${followers}`;
+    followings.textContent = `Following: ${following}`;
+    bios.textContent = `Bio: ${bio}`;
+
+    card.appendChild(img);
+    card.appendChild(card_info);
+    card_info.append(names, username, locations, profile, followerss, followings, bios);
+    profile.appendChild(address);
+
+    return card;
+}
+
+function get(login, entry_point) {
+    axios.get(`https://api.github.com/users/${login}`)
+        .then(res => {
+            console.log(res.data)
+            entry_point.appendChild(Git_Card(res.data))
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
+
+function Fuckers(names, entry_point) {
+    names.forEach(name => {
+        axios.get(`https://api.github.com/users/${name}`)
+            .then(res => {
+                entry_point.appendChild(Git_Card(res.data))
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    })
+}
+
+get("VABIII", entry)
+
+Fuckers(followersArray, entry);
